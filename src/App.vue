@@ -1,25 +1,32 @@
 <template>
   <img alt="ascii codes logo" src="./assets/logo.png">
-  <h3 v-if="showKeys">Favourite letters</h3>
-  <KeysBoard v-if="showKeys" :letters="favBooks" @onClickControlLetterApp="onClickControlLetter" @onClickLetterApp="onClickLetter"></KeysBoard>
-  <h3 v-if="showKeys">All letters</h3>
-  <KeysBoard v-if="showKeys" :letters="notFavBooks" @onClickControlLetterApp="onClickControlLetter" @onClickLetterApp="onClickLetter"></KeysBoard>
-  <TextBox :textValue="textboxText"></TextBox>
+  <div v-if="showKeys">
+    <h3>Favourite letters</h3>
+    <KeysBoard :letters="favBooks" @onClickControlLetterApp="onClickControlLetter" @onClickLetterApp="onClickLetter"></KeysBoard>
+    <h3>All letters</h3>
+    <KeysBoard :letters="notFavBooks" @onClickControlLetterApp="onClickControlLetter" @onClickLetterApp="onClickLetter"></KeysBoard>
+    <TextBox :textValue="textboxText"></TextBox>
+  </div>
+  <div v-if="!showKeys" class="chartClass">
+    <Chart> </Chart>
+  </div>
   <button @click="ButtonOnClick" id="showButtons">{{buttonCaption}}</button>
 </template>
 
 <script>
-
+import Chart from './components/Chart.vue'
 import TextBox from './components/TextBox.vue'
 import KeysBoard from './components/KeysBoard.vue'
+
+
 export default {
   name: 'App',
-  components: {KeysBoard, TextBox},
+  components: {KeysBoard, TextBox, Chart},
   methods: {
     ButtonOnClick(){
       this.showKeys = !this.showKeys;
       if (this.showKeys){
-        this.buttonCaption = "Hide button keys"
+        this.buttonCaption = "Display usage graph"
       }else{
         this.buttonCaption = "Show button keys"
       }  
@@ -29,6 +36,8 @@ export default {
     },
     onClickLetter(message){
       console.log(message);
+      message.letter.clicked++;
+      console.log(message);
       this.textboxText = this.textboxText + message.letter.letter;
     }
   },
@@ -36,43 +45,43 @@ export default {
     return {
       showKeys: true,
       textboxText: '',
-      buttonCaption: "Hide button keys",
+      buttonCaption: "Display usage graph",
       letters: [
-              {letter: 'A', asciicode: '65', isFav: false},
-              {letter: 'B', asciicode: '66', isFav: false},
-              {letter: 'C', asciicode: '67', isFav: false},
-              {letter: 'D', asciicode: '68', isFav: false},
-              {letter: 'E', asciicode: '69', isFav: false},
-              {letter: 'F', asciicode: '70', isFav: false},
-              {letter: 'G', asciicode: '71', isFav: false},
-              {letter: 'H', asciicode: '72', isFav: false},
-              {letter: 'I', asciicode: '73', isFav: false},
-              {letter: 'J', asciicode: '74', isFav: false},
-              {letter: 'K', asciicode: '75', isFav: false},
-              {letter: 'L', asciicode: '76', isFav: false},
-              {letter: 'M', asciicode: '77', isFav: false},
-              {letter: 'N', asciicode: '78', isFav: false},
-              {letter: 'O', asciicode: '79', isFav: false},
-              {letter: 'P', asciicode: '80', isFav: false},
-              {letter: 'Q', asciicode: '81', isFav: false},
-              {letter: 'R', asciicode: '82', isFav: false},
-              {letter: 'S', asciicode: '83', isFav: false},
-              {letter: 'T', asciicode: '84', isFav: false},
-              {letter: 'U', asciicode: '85', isFav: false},
-              {letter: 'V', asciicode: '86', isFav: false},
-              {letter: 'W', asciicode: '87', isFav: false},
-              {letter: 'X', asciicode: '88', isFav: false},
-              {letter: 'Y', asciicode: '89', isFav: false},
-              {letter: 'Z', asciicode: '90', isFav: false},
-              {letter: 'a', asciicode: '90', isFav: false},
-              {letter: 'b', asciicode: '90', isFav: false},
-              {letter: 'c', asciicode: '90', isFav: false},
-              {letter: 'd', asciicode: '90', isFav: false},
-              {letter: 'e', asciicode: '90', isFav: false},
-              {letter: 'f', asciicode: '90', isFav: false},
-              {letter: 'g', asciicode: '90', isFav: false},
-              {letter: 'h', asciicode: '90', isFav: false},
-              {letter: 'i', asciicode: '90', isFav: false},
+              {letter: 'A', asciicode: '65', isFav: false, clicked: 0},
+              {letter: 'B', asciicode: '66', isFav: false, clicked: 0},
+              {letter: 'C', asciicode: '67', isFav: false, clicked: 0},
+              {letter: 'D', asciicode: '68', isFav: false, clicked: 0},
+              {letter: 'E', asciicode: '69', isFav: false, clicked: 0},
+              {letter: 'F', asciicode: '70', isFav: false, clicked: 0},
+              {letter: 'G', asciicode: '71', isFav: false, clicked: 0},
+              {letter: 'H', asciicode: '72', isFav: false, clicked: 0},
+              {letter: 'I', asciicode: '73', isFav: false, clicked: 0},
+              {letter: 'J', asciicode: '74', isFav: false, clicked: 0},
+              {letter: 'K', asciicode: '75', isFav: false, clicked: 0},
+              {letter: 'L', asciicode: '76', isFav: false, clicked: 0},
+              {letter: 'M', asciicode: '77', isFav: false, clicked: 0},
+              {letter: 'N', asciicode: '78', isFav: false, clicked: 0},
+              {letter: 'O', asciicode: '79', isFav: false, clicked: 0},
+              {letter: 'P', asciicode: '80', isFav: false, clicked: 0},
+              {letter: 'Q', asciicode: '81', isFav: false, clicked: 0},
+              {letter: 'R', asciicode: '82', isFav: false, clicked: 0},
+              {letter: 'S', asciicode: '83', isFav: false, clicked: 0},
+              {letter: 'T', asciicode: '84', isFav: false, clicked: 0},
+              {letter: 'U', asciicode: '85', isFav: false, clicked: 0},
+              {letter: 'V', asciicode: '86', isFav: false, clicked: 0},
+              {letter: 'W', asciicode: '87', isFav: false, clicked: 0},
+              {letter: 'X', asciicode: '88', isFav: false, clicked: 0},
+              {letter: 'Y', asciicode: '89', isFav: false, clicked: 0},
+              {letter: 'Z', asciicode: '90', isFav: false, clicked: 0},
+              {letter: 'a', asciicode: '90', isFav: false, clicked: 0},
+              {letter: 'b', asciicode: '90', isFav: false, clicked: 0},
+              {letter: 'c', asciicode: '90', isFav: false, clicked: 0},
+              {letter: 'd', asciicode: '90', isFav: false, clicked: 0},
+              {letter: 'e', asciicode: '90', isFav: false, clicked: 0},
+              {letter: 'f', asciicode: '90', isFav: false, clicked: 0},
+              {letter: 'g', asciicode: '90', isFav: false, clicked: 0},
+              {letter: 'h', asciicode: '90', isFav: false, clicked: 0},
+              {letter: 'i', asciicode: '90', isFav: false, clicked: 0},
 
 
           ]
@@ -87,6 +96,9 @@ export default {
       },
   }
 }
+
+
+
 </script>
 
 <style>
@@ -120,5 +132,18 @@ button{
 
 h3{
    color: white;
+}
+
+.chartClass{
+  background-color:#404040;
+  width: 75%;
+  border: 2px solid black;
+  border-radius: 10px;
+  margin: auto;
+  margin-top: 20px; 
+  display: auto;
+  max-width: 75%;
+  height: 300px;
+  box-sizing: border-box;
 }
 </style>
