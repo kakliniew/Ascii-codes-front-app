@@ -5,23 +5,50 @@ import { Bar } from 'vue3-chart-v2'
 export default defineComponent({
   name: 'UsageChart',
   extends: Bar,
+  props: ['clickedLetters'],
   mounted () {
-    // Overwriting base render method with actual data.
     this.renderChart({
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      labels: this.labelsComputed,
       datasets: [
         {
-          label: 'GitHub Commits',
+          label: 'Letter usage',
           backgroundColor: '#f87979',
-          data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+          data: this.valuesComputed
         }
       ],
-      options: {
+    },
+    { 
         maintainAspectRatio: false,
-      }
-      
-      
+        responsive: true,
+
+        scales: {
+          yAxes: [{
+              ticks: {
+                  beginAtZero: true,
+                  stepSize: 1,
+                  fontColor: "white",
+              }
+          }],
+          xAxes: [{
+              ticks: {
+                  fontColor: "white"
+              }
+          }]
+        },
+        legend: {
+                labels: {
+                    fontColor: "white",
+                }
+        },
     })
+  },
+  computed: {
+    labelsComputed(){
+      return this.clickedLetters.map(x => x.letter)
+    },
+    valuesComputed(){
+      return this.clickedLetters.map(x => x.clicked)
+    }
   }
 })
 </script>

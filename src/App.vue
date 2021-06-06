@@ -8,7 +8,7 @@
     <TextBox :textValue="textboxText"></TextBox>
   </div>
   <div v-if="!showKeys" class="chartClass">
-    <Chart> </Chart>
+    <Chart :clickedLetters="clickedLettersFilter"> </Chart>
   </div>
   <button @click="ButtonOnClick" id="showButtons">{{buttonCaption}}</button>
 </template>
@@ -30,14 +30,13 @@ export default {
       }else{
         this.buttonCaption = "Show button keys"
       }  
+      console.log(this.clickedLettersFilter)
     },
     onClickControlLetter(message){
       message.letter.isFav = !message.letter.isFav;
     },
     onClickLetter(message){
-      console.log(message);
       message.letter.clicked++;
-      console.log(message);
       this.textboxText = this.textboxText + message.letter.letter;
     }
   },
@@ -73,15 +72,39 @@ export default {
               {letter: 'X', asciicode: '88', isFav: false, clicked: 0},
               {letter: 'Y', asciicode: '89', isFav: false, clicked: 0},
               {letter: 'Z', asciicode: '90', isFav: false, clicked: 0},
-              {letter: 'a', asciicode: '90', isFav: false, clicked: 0},
-              {letter: 'b', asciicode: '90', isFav: false, clicked: 0},
-              {letter: 'c', asciicode: '90', isFav: false, clicked: 0},
-              {letter: 'd', asciicode: '90', isFav: false, clicked: 0},
-              {letter: 'e', asciicode: '90', isFav: false, clicked: 0},
-              {letter: 'f', asciicode: '90', isFav: false, clicked: 0},
-              {letter: 'g', asciicode: '90', isFav: false, clicked: 0},
-              {letter: 'h', asciicode: '90', isFav: false, clicked: 0},
-              {letter: 'i', asciicode: '90', isFav: false, clicked: 0},
+              {letter: 'a', asciicode: '97', isFav: false, clicked: 0},
+              {letter: 'b', asciicode: '98', isFav: false, clicked: 0},
+              {letter: 'c', asciicode: '99', isFav: false, clicked: 0},
+              {letter: 'd', asciicode: '100', isFav: false, clicked: 0},
+              {letter: 'e', asciicode: '101', isFav: false, clicked: 0},
+              {letter: 'f', asciicode: '102', isFav: false, clicked: 0},
+              {letter: 'g', asciicode: '103', isFav: false, clicked: 0},
+              {letter: 'h', asciicode: '104', isFav: false, clicked: 0},
+              {letter: 'i', asciicode: '105', isFav: false, clicked: 0},
+              {letter: 'j', asciicode: '106', isFav: false, clicked: 0},
+              {letter: 'k', asciicode: '107', isFav: false, clicked: 0},
+              {letter: 'l', asciicode: '108', isFav: false, clicked: 0},
+              {letter: 'm', asciicode: '109', isFav: false, clicked: 0},
+              {letter: 'n', asciicode: '110', isFav: false, clicked: 0},
+              {letter: 'o', asciicode: '111', isFav: false, clicked: 0},
+              {letter: 'p', asciicode: '112', isFav: false, clicked: 0},
+              {letter: 'q', asciicode: '113', isFav: false, clicked: 0},
+              {letter: 'r', asciicode: '114', isFav: false, clicked: 0},
+              {letter: 's', asciicode: '115', isFav: false, clicked: 0},
+              {letter: 't', asciicode: '116', isFav: false, clicked: 0},
+              {letter: 'u', asciicode: '117', isFav: false, clicked: 0},
+              {letter: 'v', asciicode: '118', isFav: false, clicked: 0},
+              {letter: 'w', asciicode: '119', isFav: false, clicked: 0},
+              {letter: 'x', asciicode: '120', isFav: false, clicked: 0},
+              {letter: 'y', asciicode: '121', isFav: false, clicked: 0},
+              {letter: 'z', asciicode: '122', isFav: false, clicked: 0},
+              {letter: 'ü', asciicode: '129', isFav: false, clicked: 0},
+              {letter: 'ä', asciicode: '132', isFav: false, clicked: 0},
+              {letter: 'Ä', asciicode: '142', isFav: false, clicked: 0},
+              {letter: 'ö', asciicode: '148', isFav: false, clicked: 0},
+              {letter: 'Ö', asciicode: '153', isFav: false, clicked: 0},
+              {letter: 'Ü', asciicode: '154', isFav: false, clicked: 0},
+              {letter: 'ß', asciicode: '225', isFav: false, clicked: 0},
 
 
           ]
@@ -93,6 +116,9 @@ export default {
       },
       notFavBooks(){
           return this.letters.filter((letter) => !letter.isFav)
+      },
+      clickedLettersFilter(){
+          return this.letters.filter((letter) => letter.clicked > 0)
       },
   }
 }
@@ -143,7 +169,7 @@ h3{
   margin-top: 20px; 
   display: auto;
   max-width: 75%;
-  height: 300px;
+  height: 400px;
   box-sizing: border-box;
 }
 </style>
