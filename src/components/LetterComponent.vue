@@ -82,7 +82,7 @@ label{
 
   font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
-  color: #009bd1;
+  color: black;
 
   background-color: #eee0ce;
   border: 2px solid #f6e5d6;
